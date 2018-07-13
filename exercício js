@@ -1,0 +1,66 @@
+// seleciona os elementos
+const alturaElemento = document.querySelector('input[name=altura]')
+const pesoElemento = document.querySelector('input[name=peso]')
+const imcElemento = document.querySelector('#imc')
+const button = document.querySelector('button')
+
+function calculadoraDeIMC() {
+    // pega os valores dos input
+    let altura = alturaElemento.value
+    let peso = pesoElemento.value
+    let sexo = document.querySelector('input[name=sexo]:checked').value
+    
+    let imc = peso / altura ** 2
+    let resultado
+
+    // cálculo de IMC
+    if(sexo == 'masculino'){
+        if (imc < 20.7)
+            resultado = "Abaixo do Peso"
+        else if (imc > 20.7 && imc < 26.4)
+            resultado = "Peso Normal"
+        else if (imc > 26.4 && imc < 27.8)
+            resultado = "Marginalmente Acima do Peso"
+        else if (imc > 27.8 && imc < 31.1)
+            resultado = "Acima do Peso Ideal"
+        else
+            resultado = "Obeso"
+    } else {
+        if (imc < 19.1)
+            resultado = "Abaixo do Peso"
+        else if (imc > 19.1 && imc < 25.8)
+            resultado = "Peso Normal"
+        else if (imc > 25.8 && imc < 27.3)
+            resultado = "Marginalmente Acima do Peso"
+        else if (imc > 27.3 && imc < 32.3)
+            resultado = "Acima do Peso Ideal"
+        else
+            resultado = "Obesa"
+    }
+    imcElemento.value = resultado
+}
+
+//limpar os campos
+function cleanFields(){
+    alturaElemento.value = ''
+    pesoElemento.value = ''
+    imcElemento.value = ''
+    
+    alturaElemento.focus()
+    
+}
+
+// evento de click no botão chama a função para limpar os campos
+button.addEventListener('click', function() {
+    calculadoraDeIMC()
+  })
+
+document.addEventListener('keyup', function(event) {
+    // pressionando 'Esc' chama a função para limpar os campos
+    if (event.key == 'Escape') {
+        cleanFields()
+    // pressionando 'Enter' chama a função para cálculo de IMC
+    } else if (event.key == 'Enter') {
+       calculadoraDeIMC()
+    }
+  })
